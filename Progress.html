@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberAwareU - Progress</title>
+  <style>
+    :root {
+      --primary: #004aad;
+      --accent: #e1f5fe;
+      --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: var(--font);
+      background-color: #f8f9fa;
+      color: #222;
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .streak-box {
+      background-color: var(--accent);
+      border-left: 6px solid var(--primary);
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+    .task-list label {
+      display: block;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+    .task-list input[type="checkbox"]:checked + span {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .calendar .day {
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #eee;
+    }
+    .calendar .logged {
+      background-color: var(--primary);
+      color: white;
+    }
+    .calendar-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <img src="AppLogo3.png" alt="CyberAwareU Logo" style="height: 60px;">
+        <nav>
+          <a href="CyberAwareU.html">Home</a>
+          <a href="Tips.html">Tips</a>
+          <a href="Progress.html">Progress</a>
+          <a href="Generator.html">Generator</a>
+          <a href="News.html">News</a>
+          <a href="Settings.html">Settings</a>
+        </nav>
+      </header>
+
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <img src="IMG.png" alt="CyberAwareU Mascot" style="max-width: 200px; border-radius: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  </div>
+
+  <main>
+    <div class="card">
+      <h2>✅ Today's Tasks</h2>
+      <div class="task-list">
+        <label><input type="checkbox"> <span>Read one tip from the Tips page</span></label>
+        <label><input type="checkbox"> <span>Update your password on one website</span></label>
+        <label><input type="checkbox"> <span>Enable 2FA on a new account</span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📅 Daily Progress Tracker</h2>
+      <div class="streak-box" id="streak-display">Streak: 0 days 🔥</div>
+      <div class="calendar-header">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+      <div class="calendar" id="calendar"></div>
+    </div>
+  </main>
+
+  <script>
+    const today = new Date();
+    const todayKey = today.toISOString().split('T')[0];
+
+    let logDays = JSON.parse(localStorage.getItem('loggedDays') || '[]');
+    if (!logDays.includes(todayKey)) {
+      logDays.push(todayKey);
+      localStorage.setItem('loggedDays', JSON.stringify(logDays));
+    }
+
+    const streakDisplay = document.getElementById('streak-display');
+    const calendar = document.getElementById('calendar');
+    const start = new Date(today.getFullYear(), today.getMonth(), 1);
+    const end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    // Pad start of calendar to match correct weekday
+    for (let i = 0; i < start.getDay(); i++) {
+      const pad = document.createElement('div');
+      pad.className = 'day';
+      calendar.appendChild(pad);
+    }
+
+    let streak = 0;
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      const key = d.toISOString().split('T')[0];
+      const div = document.createElement('div');
+      div.className = 'day';
+      div.innerText = d.getDate();
+      if (logDays.includes(key)) {
+        div.classList.add('logged');
+        streak++;
+      }
+      calendar.appendChild(div);
+    }
+
+    streakDisplay.innerText = `Streak: ${streak} day${streak !== 1 ? 's' : ''} 🔥`;
+  </script>
+</body>
+</html>

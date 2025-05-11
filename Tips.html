@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberAwareU - Tips</title>
+  <style>
+    :root {
+      --primary: #004aad;
+      --accent: #e1f5fe;
+      --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: var(--font);
+      background-color: #f8f9fa;
+      color: #222;
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+    }
+    .card h2, .card h3 {
+      color: var(--primary);
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .tip-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .tip-item img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .tip-meta {
+      font-size: 0.75rem;
+      color: #666;
+    }
+    .effort {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: white;
+    }
+    .easy {
+      background: green;
+    }
+    .medium {
+      background: orange;
+    }
+    .hard {
+      background: red;
+    }
+    .filter-bar {
+      margin-bottom: 1.5rem;
+    }
+    .favorite-section {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <img src="AppLogo3.png" alt="CyberAwareU Logo" style="height: 60px;">
+        <nav>
+          <a href="CyberAwareU.html">Home</a>
+          <a href="Tips.html">Tips</a>
+          <a href="Progress.html">Progress</a>
+          <a href="Generator.html">Generator</a>
+          <a href="News.html">News</a>
+          <a href="Settings.html">Settings</a>
+        </nav>
+      </header>
+
+  <main>
+    <div class="card">
+      <h2>📌 Cybersecurity Tips</h2>
+      <div class="filter-bar">
+        <label for="category-select">Filter by Category:</label>
+        <select id="category-select" onchange="filterTips(this.value)">
+          <option value="all">All</option>
+          <option value="passwords">Passwords</option>
+          <option value="phishing">Phishing</option>
+          <option value="devices">Devices</option>
+        </select>
+      </div>
+      <div id="tips-list">
+        <div class="tip-item" data-category="passwords">
+          <span>Use a different password for every account.</span>
+          <div>
+            <span class="effort easy">Easy</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="star" onclick="toggleFavorite(this)">
+          </div>
+        </div>
+        <div class="tip-item" data-category="passwords">
+          <span>Use a password manager to store and create secure passwords.</span>
+          <div>
+            <span class="effort medium">Medium</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="star" onclick="toggleFavorite(this)">
+          </div>
+        </div>
+        <div class="tip-item" data-category="phishing">
+          <span>Watch out for phishing emails with urgent language or fake login pages.</span>
+          <div>
+            <span class="effort medium">Medium</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="star" onclick="toggleFavorite(this)">
+          </div>
+        </div>
+        <div class="tip-item" data-category="devices">
+          <span>Keep software and operating systems up to date.</span>
+          <div>
+            <span class="effort easy">Easy</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="star" onclick="toggleFavorite(this)">
+          </div>
+        </div>
+        <div class="tip-item" data-category="phishing">
+          <span>Never share your passwords, even with friends or family.</span>
+          <div>
+            <span class="effort easy">Easy</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="star" onclick="toggleFavorite(this)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card favorite-section">
+      <h3>⭐ Favorited Tips</h3>
+      <div id="favorites"></div>
+    </div>
+  </main>
+
+  <script>
+    function toggleFavorite(img) {
+      const tipText = img.parentElement.parentElement.querySelector('span').innerText;
+      const isFavorited = img.classList.toggle('favorited');
+      img.src = isFavorited
+        ? 'https://cdn-icons-png.flaticon.com/512/1828/1828884.png'
+        : 'https://cdn-icons-png.flaticon.com/512/833/833472.png';
+
+      const favoritesContainer = document.getElementById('favorites');
+      const existing = [...favoritesContainer.querySelectorAll('p')].find(p => p.innerText === tipText);
+
+      if (isFavorited && !existing) {
+        const p = document.createElement('p');
+        p.innerText = tipText;
+        favoritesContainer.appendChild(p);
+      } else if (!isFavorited && existing) {
+        favoritesContainer.removeChild(existing);
+      }
+    }
+
+    function filterTips(category) {
+      const tips = document.querySelectorAll('#tips-list .tip-item');
+      tips.forEach(tip => {
+        tip.style.display = category === 'all' || tip.dataset.category === category ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberAwareU - Settings</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #004aad;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    h2 {
+      margin-bottom: 1rem;
+    }
+    .info {
+      margin-bottom: 2rem;
+    }
+    .info p {
+      margin: 0.5rem 0;
+    }
+    .btn-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .btn-grid button {
+      flex: 1;
+      min-width: 150px;
+      padding: 0.75rem 1rem;
+      background-color: #004aad;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-grid button:hover {
+      background-color: #00388a;
+    }
+    .login-log {
+      font-size: 0.9rem;
+      color: #444;
+      margin-top: 2rem;
+      line-height: 1.6;
+    }
+    dialog {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    dialog::backdrop {
+      background: rgba(0,0,0,0.3);
+    }
+    dialog button {
+      margin-top: 1rem;
+      background-color: #004aad;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="AppLogo3.png" alt="CyberAwareU Logo" style="height: 60px;">
+    <nav>
+      <a href="CyberAwareU.html">Home</a>
+      <a href="Tips.html">Tips</a>
+      <a href="Progress.html">Progress</a>
+      <a href="Generator.html">Generator</a>
+      <a href="News.html">News</a>
+      <a href="Settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Settings</h2>
+    <div class="info">
+      <p><strong>Name:</strong> Alex Zielsdorf</p>
+      <p><strong>Email:</strong> zielsdra@miamioh.edu</p>
+      <p><strong>Username:</strong> AZielsdorf</p>
+    </div>
+
+    <div class="btn-grid">
+      <button onclick="openDialog('digest')">News Digest</button>
+      <button onclick="openDialog('email')">Change Email</button>
+      <button onclick="openDialog('username')">Change Username</button>
+      <button onclick="openDialog('password')">Change Password</button>
+      <button onclick="openDialog('2fa')" style="background-color: #2e74ff;">Enable 2FA</button>
+      <button onclick="openDialog('alerts')" style="background-color: #6c63ff;">2FA Alerts?</button>
+    </div>
+
+    <div class="login-log">
+      <p><strong>Last Login:</strong></p>
+      <p>iPhone 15 (Oxford, OH) – Today at 5:49 PM</p>
+      <p>MacBook Pro (Cincinnati, OH) – Yesterday at 10:22 AM</p>
+      <p>iPad Pro (Dayton, OH) – Today at 7:31 PM</p>
+      <p>Samsung Galaxy S23 (Columbus, OH) – Yesterday at 9:15 AM</p>
+      <p>MacBook Air (Chicago, IL) – 2 days ago at 3:45 PM</p>
+      <p>Dell XPS 13 (Lexington, KY) – 3 days ago at 1:18 PM</p>
+      <p>Google Pixel 7 (Cleveland, OH) – Last Friday at 10:12 PM</p>
+    </div>
+  </main>
+
+  <dialog id="digest">
+    <h3>Subscribe to News Digest?</h3>
+    <p>Would you like to receive a weekly summary of major cybersecurity stories?</p>
+    <label><input type="radio" name="digest-choice" value="yes"> Yes</label>
+    <label><input type="radio" name="digest-choice" value="no"> No</label>
+    <button onclick="closeDialog('digest')">Submit</button>
+  </dialog>
+  <dialog id="email">
+    <h3>Change Email</h3>
+    <p>Enter your new email address:</p>
+    <input type="email" placeholder="you@example.com" style="width: 100%; padding: 0.5rem;">
+    <button onclick="closeDialog('email')">Submit</button>
+  </dialog>
+  <dialog id="username">
+    <h3>Change Username</h3>
+    <p>Enter your new username:</p>
+    <input type="text" placeholder="NewUsername" style="width: 100%; padding: 0.5rem;">
+    <button onclick="closeDialog('username')">Submit</button>
+  </dialog>
+  <dialog id="password">
+    <h3>Change Password</h3>
+    <p>Enter your new password:</p>
+    <input type="password" placeholder="********" style="width: 100%; padding: 0.5rem;">
+    <button onclick="closeDialog('password')">Submit</button>
+  </dialog>
+  <dialog id="2fa">
+    <h3>Enable 2FA</h3>
+    <p>We’ll send a confirmation code to your email. Continue?</p>
+    <label><input type="radio" name="2fa-choice" value="yes"> Yes</label>
+    <label><input type="radio" name="2fa-choice" value="no"> No</label>
+    <button onclick="closeDialog('2fa')">Submit</button>
+  </dialog>
+  <dialog id="alerts">
+    <h3>2FA Alerts</h3>
+    <p>Would you like to be notified if someone tries to log in from an unknown device?</p>
+    <label><input type="radio" name="alert-choice" value="yes"> Yes</label>
+    <label><input type="radio" name="alert-choice" value="no"> No</label>
+    <button onclick="closeDialog('alerts')">Submit</button>
+  </dialog>
+
+  <script>
+    function openDialog(id) {
+      document.getElementById(id).showModal();
+    }
+    function closeDialog(id) {
+  const dialog = document.getElementById(id);
+  if (id === 'email') {
+    const newEmail = dialog.querySelector('input').value;
+    if (newEmail) {
+      document.querySelector('.info p:nth-child(2)').innerHTML = `<strong>Email:</strong> ${newEmail}`;
+    }
+  } else if (id === 'username') {
+    const newUsername = dialog.querySelector('input').value;
+    if (newUsername) {
+      document.querySelector('.info p:nth-child(3)').innerHTML = `<strong>Username:</strong> ${newUsername}`;
+    }
+  } else if (id === 'digest') {
+    const confirm = dialog.querySelector('input[name="digest-choice"]:checked');
+    if (confirm) alert(`News Digest subscription: ${confirm.value}`);
+  } else if (id === '2fa') {
+    const confirm = dialog.querySelector('input[name="2fa-choice"]:checked');
+    if (confirm) alert(`2FA ${confirm.value === 'yes' ? 'enabled' : 'cancelled'}`);
+  } else if (id === 'alerts') {
+    const confirm = dialog.querySelector('input[name="alert-choice"]:checked');
+    if (confirm) alert(`2FA alerts ${confirm.value === 'yes' ? 'enabled' : 'disabled'}`);
+  }
+  dialog.close();
+}
+  </script>
+</body>
+</html>
