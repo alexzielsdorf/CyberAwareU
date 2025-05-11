@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberAwareU - My Achievements</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #004aad;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      margin-bottom: 1.5rem;
+    }
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .achievement {
+      background: white;
+      padding: 1.25rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      text-align: center;
+      border-left: 6px solid #004aad;
+    }
+    .achievement h4 {
+      margin-bottom: 0.5rem;
+      color: #004aad;
+    }
+    .achievement p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .locked {
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="CyberAwareU Logo" style="height: 60px;">
+    <nav>
+      <a href="Home.html">Home</a>
+      <a href="Tips.html">Tips</a>
+      <a href="Progress.html">Progress</a>
+      <a href="Generator.html">Generator</a>
+      <a href="News.html">News</a>
+      <a href="Achievements.html">Achievements</a>
+      <a href="Settings.html">Settings</a>
+    </nav>
+  </header>
+  <main>
+    <h2>🏆 My Achievements</h2>
+    <div class="achievement-grid">
+      <div class="achievement" id="login-1">
+        <h4>First Login</h4>
+        <p>You've logged in for the first time!</p>
+      </div>
+      <div class="achievement" id="streak-3">
+        <h4>3-Day Streak 🔒</h4>
+        <p>Logged in 3 days in a row</p>
+      </div>
+      <div class="achievement" id="streak-7">
+        <h4>7-Day Streak 🔐</h4>
+        <p>Logged in for a full week</p>
+      </div>
+      <div class="achievement" id="used-generator">
+        <h4>Password Pro</h4>
+        <p>Used the password generator</p>
+      </div>
+      <div class="achievement" id="checked-strength">
+        <h4>Strength Tester</h4>
+        <p>Checked your password strength</p>
+      </div>
+      <div class="achievement" id="favorited-tip">
+        <h4>Tip Saver</h4>
+        <p>Favorited a security tip</p>
+      </div>
+      <div class="achievement" id="news-read">
+        <h4>In the Know</h4>
+        <p>Read a cybersecurity news article</p>
+      </div>
+      <div class="achievement" id="streak-14">
+        <h4>14-Day Streak 🛡️</h4>
+        <p>Two weeks strong!</p>
+      </div>
+      <div class="achievement" id="streak-30">
+        <h4>30-Day Streak 💻</h4>
+        <p>One month of secure habits!</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const streak = parseInt(localStorage.getItem('streak')) || 0;
+    const mark = id => document.getElementById(id).classList.remove('locked');
+
+    // Example logic to unlock
+    mark('login-1');
+    if (streak >= 3) mark('streak-3');
+    if (streak >= 7) mark('streak-7');
+    if (streak >= 14) mark('streak-14');
+    if (streak >= 30) mark('streak-30');
+
+    if (localStorage.getItem('usedGenerator')) mark('used-generator');
+    if (localStorage.getItem('checkedStrength')) mark('checked-strength');
+    if (localStorage.getItem('favoritedTip')) mark('favorited-tip');
+    if (localStorage.getItem('readNews')) mark('news-read');
+
+    // Lock everything else by default
+    document.querySelectorAll('.achievement').forEach(el => {
+      if (!el.classList.contains('locked') && !el.classList.contains('achieved')) {
+        el.classList.add('locked');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,227 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CyberAwareU</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberAwareU - Login</title>
   <style>
-    :root {
-      --primary: #004aad;
-      --accent: #e1f5fe;
-      --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: var(--font);
-      background-color: #f8f9fa;
-      color: #222;
-    }
-
-    header {
-      background-color: var(--primary);
-      color: white;
-      padding: 1rem 2rem;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #004aad, #3a7bd5);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-    }
-
-    nav a {
+      justify-content: center;
+      height: 100vh;
       color: white;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 500;
     }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
+    .login-container {
+      background-color: white;
+      color: #222;
       padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: white;
-      padding: 1.5rem 2rem;
-      margin-bottom: 2rem;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-    }
-
-    .card h2 {
-      color: var(--primary);
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .streak-container {
-      background: var(--accent);
-      border-left: 6px solid var(--primary);
-      padding: 1.25rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 10px;
-    }
-
-    .badge-img {
-      max-width: 100px;
-      margin-top: 1rem;
-    }
-
-    input[type='text'], input[type='password'] {
-      padding: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      max-width: 400px;
       width: 100%;
-      margin-top: 0.5rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-bottom: 1rem;
+      text-align: center;
     }
-
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #004aad;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
     button {
-      background-color: var(--primary);
-      color: white;
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #004aad;
       border: none;
-      padding: 0.5rem 1rem;
+      color: white;
+      font-size: 1rem;
       border-radius: 6px;
       cursor: pointer;
     }
-
-    .news-item {
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.5rem;
-      margin-bottom: 0.5rem;
+    button:hover {
+      background-color: #00388a;
     }
-
-    @media screen and (max-width: 600px) {
-      nav a {
-        margin-left: 0.75rem;
-        font-size: 0.95rem;
-      }
-      .card {
-        padding: 1rem 1.25rem;
-      }
+    .logo {
+      margin-bottom: 1.5rem;
+    }
+    .logo img {
+      max-height: 60px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="AppLogo3.png" alt="CyberAwareU Logo" style="height: 60px;">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="Tips.html">Tips</a>
-      <a href="Progress.html">Progress</a>
-      <a href="Generator.html">Generator</a>
-      <a href="News.html">News</a>
-      <a href="Settings.html">Settings</a>
-    </nav>
-  </header>
-
-  <main>
-    <div class="card">
-      <h2>🔐 Top Task</h2>
-      <p>Update your most-used email password with something unique and secure. Use a password manager to help you remember it!</p>
+  <div class="login-container">
+    <div class="logo">
+      <img src="AppLogo3.png" alt="CyberAwareU Logo">
     </div>
-
-    <div class="card">
-      <h2>💡 Security Tip</h2>
-      <p>Reusing passwords is risky. A data leak on one site can compromise your whole digital life. Use different passwords for everything!</p>
-    </div>
-
-    <div class="card">
-      <h2>⚠️ Daily Threat</h2>
-      <p>Students are being targeted with fake password reset emails. Double-check the sender before you click anything.</p>
-    </div>
-
-    <div class="card">
-      <h2>🔥 Streak Progress</h2>
-      <div class="streak-container" id="streak-count">You've logged in <span id="streak-days">0</span> days in a row!</div>
-      <img src="IMG.png" class="badge-img" alt="Streak Badge">
-    </div>
-
-    <div class="card">
-      <h2>🔧 Password Generator</h2>
-      <button onclick="generatePassword()">Generate Password</button>
-      <p id="generated-password" style="margin-top: 1rem; font-weight: bold;"></p>
-    </div>
-
-    <div class="card">
-      <h2>📏 Password Strength Checker</h2>
-      <input type="password" id="check-password" placeholder="Enter a password to check" oninput="checkStrength()">
-      <p id="strength-result"></p>
-    </div>
-
-    <div class="card">
-      <h2>📰 Cybersecurity News</h2>
-      <div class="news-item">• Hackers are targeting college Wi-Fi networks. Use VPNs on public connections.</div>
-      <div class="news-item">• Google reported an increase in phishing scams imitating school login portals.</div>
-      <div class="news-item">• Password manager apps like Bitwarden are becoming more student-friendly.</div>
-    </div>
-
-    <div class="card">
-      <h2>⚙️ Settings</h2>
-      <label>Notification Preference:</label>
-      <select>
-        <option>Email</option>
-        <option>Text Message</option>
-        <option>Push Notification</option>
-      </select>
-    </div>
-  </main>
+    <h2>Welcome Back</h2>
+    <input type="text" placeholder="Username" id="username">
+    <input type="password" placeholder="Password" id="password">
+    <button onclick="login()">Log In</button>
+  </div>
 
   <script>
-    // Simple password generator
-    function generatePassword() {
-      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"
-      let password = "";
-      for (let i = 0; i < 12; i++) {
-        password += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      document.getElementById('generated-password').innerText = password;
-    }
-
-    // Simple password strength checker
-    function checkStrength() {
-      const pwd = document.getElementById('check-password').value;
-      const result = document.getElementById('strength-result');
-      let strength = "Weak";
-      if (pwd.length >= 12 && /[A-Z]/.test(pwd) && /[0-9]/.test(pwd) && /[^A-Za-z0-9]/.test(pwd)) {
-        strength = "Strong";
-      } else if (pwd.length >= 8) {
-        strength = "Medium";
-      }
-      result.innerText = "Strength: " + strength;
-    }
-
-    // Streak tracker using localStorage
-    const today = new Date().toLocaleDateString();
-    const lastLogin = localStorage.getItem('lastLogin');
-    let streak = parseInt(localStorage.getItem('streak')) || 0;
-
-    if (lastLogin !== today) {
-      if (new Date(lastLogin).getDate() === new Date(new Date().setDate(new Date().getDate() - 1)).getDate()) {
-        streak++;
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user && pass) {
+        localStorage.setItem('username', user);
+        window.location.href = 'Home.html';
       } else {
-        streak = 1;
+        alert('Please enter both username and password.');
       }
-      localStorage.setItem('lastLogin', today);
-      localStorage.setItem('streak', streak);
     }
-
-    document.getElementById('streak-days').innerText = streak;
   </script>
 </body>
 </html>
