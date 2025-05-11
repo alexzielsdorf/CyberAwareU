@@ -3,27 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CyberAwareU - Password Generator</title>
+  <title>CyberAwareU - Generator</title>
   <style>
     :root {
       --primary: #004aad;
       --accent: #e1f5fe;
       --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     body {
       font-family: var(--font);
       background-color: #f8f9fa;
       color: #222;
-      padding: 2rem;
     }
-
     header {
       background-color: var(--primary);
       color: white;
@@ -32,68 +28,54 @@
       justify-content: space-between;
       align-items: center;
     }
-
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
     nav a {
       color: white;
       text-decoration: none;
-      margin-left: 1.5rem;
       font-weight: 500;
     }
-
     nav a:hover {
       text-decoration: underline;
     }
-
     main {
       padding: 2rem;
       max-width: 900px;
       margin: 0 auto;
     }
-
-    .generator {
-      max-width: 600px;
+    .card {
       background: white;
       padding: 2rem;
-      margin: auto;
+      margin-bottom: 2rem;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-
-    h2 {
-      text-align: center;
+    .card h2 {
       color: var(--primary);
       margin-bottom: 1rem;
+      text-align: center;
     }
-
     .options {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0.5rem;
       margin-bottom: 1rem;
     }
-
     .options label {
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-
-    input[type=range], input[type=text] {
+    input[type=range], input[type=text], input[type=password] {
       width: 100%;
       margin: 0.5rem 0;
-    }
-
-    #output {
-      font-weight: bold;
-      margin-top: 1rem;
-      font-size: 1.1rem;
-      word-break: break-all;
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 6px;
-      background: #f1f1f1;
     }
-
     button {
       background-color: var(--primary);
       color: white;
@@ -104,35 +86,31 @@
       display: block;
       margin: 1rem auto 0 auto;
     }
-
     ul {
       list-style: none;
       padding-left: 0;
     }
-
     .strength li {
       margin: 0.25rem 0;
     }
-
-    .pass {
-      color: green;
-    }
-
-    .fail {
-      color: red;
-    }
-
-    #score-output {
+    .pass { color: green; }
+    .fail { color: red; }
+    #output, #score-output {
       font-weight: bold;
-      text-align: center;
       margin-top: 1rem;
       font-size: 1.1rem;
+      word-break: break-word;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f1f1f1;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="CyberAwareU Logo" style="height: 60px;">
+    <img src="AppLogo3.png" alt="CyberAwareU Logo" style="height: 60px;">
     <nav>
       <a href="Home.html">Home</a>
       <a href="Tips.html">Tips</a>
@@ -145,7 +123,7 @@
   </header>
 
   <main>
-    <div class="generator">
+    <div class="card">
       <h2>Password Generator</h2>
       <label>Password Length: <span id="length-val">12</span></label>
       <input type="range" id="length" min="4" max="64" value="12" oninput="document.getElementById('length-val').textContent = this.value">
@@ -160,8 +138,11 @@
 
       <button onclick="generatePassword()">Generate</button>
       <div id="output"></div>
+<button onclick="copyPassword()" style="margin-top: 0.75rem; background-color: #28a745; padding: 0.5rem 1.25rem; font-size: 0.95rem; border-radius: 6px; color: white; border: none; cursor: pointer;">📋 Copy to Clipboard</button>
+    </div>
 
-      <h2 style="margin-top:2rem">Password Strength Checker</h2>
+    <div class="card">
+      <h2>Password Strength Checker</h2>
       <input type="text" id="check-input" placeholder="Enter a password" oninput="checkStrength()">
       <ul id="strength-list" class="strength"></ul>
       <p id="score-output"></p>
@@ -204,6 +185,7 @@
       document.getElementById('output').innerText = password;
       document.getElementById('check-input').value = password;
       checkStrength();
+      localStorage.setItem('usedGenerator', true);
     }
 
     function checkStrength() {
@@ -222,7 +204,6 @@
       ];
 
       let score = 0;
-
       checks.forEach(rule => {
         const li = document.createElement('li');
         li.textContent = (rule.test ? '✅' : '❌') + ' ' + rule.label;
@@ -233,7 +214,18 @@
 
       scoreOutput.textContent = `Password Score: ${score}/6`;
       scoreOutput.style.color = score >= 5 ? 'green' : score >= 3 ? 'orange' : 'red';
+      localStorage.setItem('checkedStrength', true);
     }
-  </script>
+    function copyPassword() {
+    const text = document.getElementById('output').innerText;
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Password copied to clipboard!');
+      }, () => {
+        alert('Failed to copy password.');
+      });
+    }
+  }
+</script>
 </body>
 </html>
